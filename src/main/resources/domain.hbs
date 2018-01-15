@@ -1,0 +1,10 @@
+<div class="mdl-cell mdl-cell--12-col">
+    {{#each status}}
+        <h2>{{this}}</h2>
+    {{else}}
+        <h2>Valid protection</h2>
+    {{/each}}
+    {{#each result.data}}
+        {{> showResult record=this}}
+    {{/each}}
+</div>

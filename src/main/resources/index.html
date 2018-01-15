@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="kotlin.js"></script>
+        <script src="spfVisualiser.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://www.jrtapsell.co.uk/res/mdl/custom.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    </head>
+    <body>
+        <!-- Simple header with fixed tabs. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">SPF Record Checker</span>
+                </div>
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                    <a href="#domain-tab" class="mdl-layout__tab is-active">Results</a>
+                    <a href="#tree-tab" class="mdl-layout__tab">Domain Tree</a>
+                    <a href="#ip-tab" class="mdl-layout__tab">Allowed Servers</a>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">Title</span>
+            </div>
+            <main class="mdl-layout__content">
+                <section class="mdl-layout__tab-panel is-active" id="domain-tab">
+                </section>
+                <section class="mdl-layout__tab-panel" id="tree-tab">
+                </section>
+                <section class="mdl-layout__tab-panel" id="ip-tab">
+                </section>
+            </main>
+        </div>
+    </body>
+    <script>spfVisualiser.start()</script>
+</html>
+

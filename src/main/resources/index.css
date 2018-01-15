@@ -1,0 +1,39 @@
+.token-ip4 {
+    color: hsl(0,70%, 50%);
+}
+.token-ip6 {
+    color: hsl(40,70%, 50%);
+}
+.token-a {
+    color: hsl(80,70%, 50%);
+}
+.token-mx {
+    color: hsl(120,70%, 50%);
+}
+.token-ptr {
+    color: hsl(160,70%, 50%);
+}
+.token-exists {
+    color: hsl(200,70%, 50%);
+}
+.token-include {
+    color: hsl(240,70%, 50%);
+}
+.token-all {
+    color: hsl(280,70%, 50%);
+}
+.token-exp {
+    color: hsl(320,70%, 50%);
+}
+
+.ghost {
+    font-weight: bold;
+    color: black;
+}
+pre {
+    border: dotted;
+    display: inline-block;
+    background: #ccc;
+    border-radius: 0.3em;
+    margin-right: 0.1em;
+}

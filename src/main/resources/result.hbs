@@ -1,0 +1,20 @@
+<div>Strings: {{#each raw}}<pre>{{#if this}}{{this}}{{else}}&lt;BLANK&gt;{{/if}}</pre>{{/each}}</div>
+<div>Effective Record: <pre>{{#each raw}}{{this}}{{/each}}</pre></div>
+{{#if record}}
+    <div>
+        {{#if parsed}}
+            {{#with parsed}}
+                <span>v=spf1 </span>
+                {{#each this}}
+                    <span class="token-{{type.token}}">
+                    {{#if rule}}<span class="prefix nospace">{{rule.prefix}}</span>{{else}}<span class="ghost prefix nospace">+</span>{{/if}}<span class="name nospace">{{type.token}}</span>{{#if payload}}<span name="payload nospace">:{{payload}}</span>{{/if}}
+                </span>
+                {{/each}}
+            {{/with}}
+        {{else}}
+            Record is invalid
+        {{/if}}
+    </div>
+{{else}}
+    <div>Invalid record</div>
+{{/if}}
