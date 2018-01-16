@@ -27,7 +27,7 @@ object DNS {
     val chosenServer by lazy { ALL_SERVERS.choose() }
     fun getTxt(domain: String): Promise<Array<TXTAnswer>> {
         return Promise{resolve, reject ->
-            window.fetch("http://www.dns-lg.com/$chosenServer/$domain/txt").then { request ->
+            window.fetch("https://checkspf.net/dns-lg/$chosenServer/$domain/txt").then { request ->
                 request.json().then {
                     if (request.status != 200.toShort()) {
                         val r = it.unsafeCast<ErrorResponse>()
