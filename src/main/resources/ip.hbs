@@ -1,0 +1,7 @@
+<div class="mdl-cell mdl-cell--12-col">
+{{#with result.data.[0]}}
+    {{#each parsed}}
+        <div>{{treatedRule.prefix}}{{type.token}}{{#if payload}}:{{payload}}{{/if}}</div>
+    {{/each}}
+{{/with}}
+</div>

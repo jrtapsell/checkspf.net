@@ -16,7 +16,9 @@ enum class SPFTokenType {
     val token = name.toLowerCase()
 }
 
-data class SPFToken(val rule: SPFRuleType?, val type:SPFTokenType, val payload: String?)
+data class SPFToken(val rule: SPFRuleType?, val type:SPFTokenType, val payload: String?) {
+    val treatedRule = rule ?: SPFRuleType.PASS
+}
 
 typealias SPFRecord = List<SPFToken>
 
