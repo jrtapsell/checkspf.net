@@ -8,6 +8,6 @@ fun start() {
     if (safeRegex.matchEntire(url) == null) {
         window.alert("The url may be mallicious")
     } else {
-        Controller.loadURL(window.location.search.substring(3))
+        Controller.loadURL(url)
     }
 }
