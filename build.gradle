@@ -41,19 +41,30 @@ task assembleWeb(type: Sync) {
         })
     }
     from compileKotlin2Js.destinationDir
-    into "${projectDir}/web"
+    into "${projectDir}/web/static/js/kotlin"
 
-    from "src/main/resources"
-    into "${projectDir}/web"
+    from "${projectDir}/src/main/resources"
+    into "${projectDir}/web/static/js/kotlin"
     dependsOn classes
 }
-
 compileKotlin2Js {
     kotlinOptions.sourceMap = true
     kotlinOptions.sourceMapEmbedSources = "always"
-
     // remaining configuration options
 }
 
+task copyExtras(type: Sync) {
+    from "${projectDir}/extra"
+    into "${projectDir}/web"
+}
+
+
 assemble.dependsOn assembleWeb
 assemble.dependsOn gulp_build
+assembleWeb.dependsOn copyExtras
+
+task wipeWeb(type: Delete) {
+    delete 'web'
+}
+
+clean.dependsOn("wipeWeb")

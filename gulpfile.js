@@ -53,7 +53,7 @@ gulp.task('templates', function() {
     // Output both the partials and the templates as build/js/templates.js
     return merge(partials, templates)
         .pipe(concat('templates.js'))
-        .pipe(gulp.dest('web'));
+        .pipe(gulp.dest('web/static/js/hbs/'));
 });
 
 gulp.task("build", gulp.series("pages","templates"));
