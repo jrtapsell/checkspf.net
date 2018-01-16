@@ -6,7 +6,7 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var concat = require('gulp-concat');
-var merge = require('merge-stream')
+var merge = require('merge-stream');
 
 gulp.task("pages", function () {
     return gulp.src("src/main/hbs/static/pages/*.hbs")

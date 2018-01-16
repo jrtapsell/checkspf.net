@@ -19,6 +19,13 @@
   "devDependencies": {
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-aws-s3-upload": "^1.1.1",
-    "gulp-compile-handlebars": "^0.6.1"
+    "gulp-compile-handlebars": "^0.6.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^5.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-wrap": "^0.13.0",
+    "merge-stream": "^1.0.1",
+    "path": "^0.12.7"
   }
 }
