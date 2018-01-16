@@ -35,8 +35,8 @@ object Controller {
             val first = it.firstOrNull { it.data.isNotEmpty() }
             OverallResult(it, first, first.validate())
         }
-        HBS.render("dynamic/templates/domain.hbs", out, document.getElementById("domain-tab") as HTMLElement)
-        HBS.render("dynamic/templates/tree.hbs", out, document.getElementById("tree-tab") as HTMLElement)
-        HBS.render("dynamic/templates/ip.hbs", out, document.getElementById("ip-tab") as HTMLElement)
+        HBS.render(out, document.getElementById("domain-tab") as HTMLElement, SPFViewer.templates::domain)
+        HBS.render(out, document.getElementById("tree-tab") as HTMLElement, SPFViewer.templates::tree)
+        HBS.render(out, document.getElementById("ip-tab") as HTMLElement, SPFViewer.templates::ip)
     }
 }

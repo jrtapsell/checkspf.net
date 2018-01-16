@@ -56,3 +56,4 @@ compileKotlin2Js {
 }
 
 assemble.dependsOn assembleWeb
+assemble.dependsOn gulp_build

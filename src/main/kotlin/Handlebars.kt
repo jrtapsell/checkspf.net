@@ -3,32 +3,23 @@ import kotlin.browser.window
 import kotlin.dom.clear
 import kotlin.js.Promise
 
-external class Template {
-    fun call(o: Template, data: Any?): String
+external object SPFViewer {
+    object templates {
+        fun domain(data: Any?): String
+        fun ip(data: Any?): String
+        fun tree(data: Any?): String
+    }
 }
-
-external object Handlebars {
-    fun compile(input: String): Template
-    fun registerPartial(name: String, partial: String)
-}
-
 
 object HBS {
-    fun render(url: String, data: Promise<Any?>, element: HTMLElement) {
+    fun render(data: Promise<Any?>, element: HTMLElement, handler: (Any?)->String) {
         element.clear()
-        val rawTemplate = window.fetch(url).then { it.text() }
-        val partial = window.fetch("dynamic/partials/result.hbs").then { it.text() }
-        Promise.all(arrayOf(rawTemplate, data, partial)).then { (rawTemplate: Any?, data: Any?, partial: Any?) ->
-            partial as String
-            rawTemplate as String
-            Handlebars.registerPartial("showResult", partial)
-            val template = Handlebars.compile(rawTemplate)
-            val js = JSON.parse<Any?>(JSON.stringify(data))
-            console.log("Rendering", js)
-            val out = template.call(template, js)
-            element.innerHTML = out
-        }.catch {
-            console.error("err", it)
+        data.then {
+            val raw = JSON.parse<Any?>(JSON.stringify(it))
+            console.log("Rendering", raw)
+            handler(raw)
+        }.then {
+            element.innerHTML = it
         }
     }
 }
