@@ -1,2 +1,2 @@
 /dns-lg/* http://www.dns-lg.com/:splat 200
-/check/* checkPage.html 200
+/check/* /checkPage.html 200
