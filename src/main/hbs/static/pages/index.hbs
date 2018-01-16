@@ -1,25 +1,4 @@
-{{#*inline "scripts"}}
-    <script src="templates.js"></script>
-    <script src="kotlin.js"></script>
-    <script src="spfVisualiser.js"></script>
-{{/inline}}
-{{#*inline "head_bar"}}
-                <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                    <a href="#domain-tab" class="mdl-layout__tab is-active">Results</a>
-                    <a href="#tree-tab" class="mdl-layout__tab">Domain Tree</a>
-                    <a href="#ip-tab" class="mdl-layout__tab">Allowed Servers</a>
-                </div>
-{{/inline}}
 {{#*inline "page_content"}}
-                <section class="mdl-layout__tab-panel is-active" id="domain-tab">
-                </section>
-                <section class="mdl-layout__tab-panel" id="tree-tab">
-                </section>
-                <section class="mdl-layout__tab-panel" id="ip-tab">
-                </section>
-{{/inline}}
-{{#*inline "after_body"}}
-    <script>spfVisualiser.start()</script>
+    <h2>SPF Record Checker</h2>
 {{/inline}}
 {{> shell}}
-

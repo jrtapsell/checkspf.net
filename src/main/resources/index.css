@@ -36,4 +36,9 @@ pre {
     background: #ccc;
     border-radius: 0.3em;
     margin-right: 0.1em;
+    overflow-x: auto;
+    max-width: 80vw;
+}
+th {
+    background: #ddd;
 }
