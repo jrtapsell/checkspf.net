@@ -1,0 +1,18 @@
+<div class="mdl-cell mdl-cell--12-col">
+    <h2>Explained parts</h2>
+{{#with result.data.[0]}}
+    <table>
+        <thead>
+            <th>Rule</th><th>Explanation</th>
+        </thead>
+        <tbody>
+            {{#each parsed}}
+                <tr>
+                <td class="ruleText"><pre>{{treatedRule.prefix}}{{type.token}}{{#if payload}}:{{payload}}{{/if}}</pre></td>
+                <td><span class="ruleExplained">{{explained}}</span></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{/with}}
+</div>

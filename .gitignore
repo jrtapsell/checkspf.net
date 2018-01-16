@@ -1,7 +1,7 @@
 # Start of by hand
 web
 # End of by hand
-
+node_modules
 # Created by https://www.gitignore.io/api/gradle,intellij+all
 
 ### Intellij+all ###

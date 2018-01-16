@@ -1,5 +1,4 @@
 import org.w3c.dom.HTMLElement
-import org.w3c.dom.get
 import kotlin.browser.document
 import kotlin.js.Promise
 
@@ -36,8 +35,8 @@ object Controller {
             val first = it.firstOrNull { it.data.isNotEmpty() }
             OverallResult(it, first, first.validate())
         }
-        HBS.render("domain.hbs", out, document.getElementById("domain-tab") as HTMLElement)
-        HBS.render("tree.hbs", out, document.getElementById("tree-tab") as HTMLElement)
-        HBS.render("ip.hbs", out, document.getElementById("ip-tab") as HTMLElement)
+        HBS.render("dynamic/templates/domain.hbs", out, document.getElementById("domain-tab") as HTMLElement)
+        HBS.render("dynamic/templates/tree.hbs", out, document.getElementById("tree-tab") as HTMLElement)
+        HBS.render("dynamic/templates/ip.hbs", out, document.getElementById("ip-tab") as HTMLElement)
     }
 }

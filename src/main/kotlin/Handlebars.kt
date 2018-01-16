@@ -17,7 +17,7 @@ object HBS {
     fun render(url: String, data: Promise<Any?>, element: HTMLElement) {
         element.clear()
         val rawTemplate = window.fetch(url).then { it.text() }
-        val partial = window.fetch("result.hbs").then { it.text() }
+        val partial = window.fetch("dynamic/partials/result.hbs").then { it.text() }
         Promise.all(arrayOf(rawTemplate, data, partial)).then { (rawTemplate: Any?, data: Any?, partial: Any?) ->
             partial as String
             rawTemplate as String

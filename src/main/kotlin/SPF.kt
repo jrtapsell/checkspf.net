@@ -1,7 +1,16 @@
 import kotlin.js.Promise
 
-enum class SPFRuleType(val char: Char) {
-    PASS('+'), NEUTRAL('?'), SOFT_FAIL('~'), FAIL('-');
+/**
+ *
+ * @param verb
+ *      Fits into the sentence: `The email should be <<verb>> if...`
+ */
+enum class SPFRuleType(val char: Char, val verb: String) {
+    PASS('+', "treated as not spam"),
+    NEUTRAL('?', "accepted"),
+    SOFT_FAIL('~', "marked as spam"),
+    FAIL('-', "dropped");
+
     companion object {
         val ALL_CHARS by lazy { values().map { it.char } }
         fun getForChar(char: Char): SPFRuleType {
@@ -12,12 +21,42 @@ enum class SPFRuleType(val char: Char) {
 
 }
 enum class SPFTokenType {
-    ALL, IP4, IP6, A, MX, PTR, EXISTS, INCLUDE, REDIRECT, EXP;
+    ALL {
+        override fun describeCondition(payload: String?, base: String) = "no other rules match"
+    }, IP4 {
+        override fun describeCondition(payload: String?, base: String) = "the sending IP (v4) matches $payload"
+    }, IP6 {
+        override fun describeCondition(payload: String?, base: String) = "the sending IP (v6) matches $payload"
+    }, A {
+        override fun describeCondition(payload: String?, base: String) =  "the address is an A record for ${payload ?: base}"
+    }, MX {
+        override fun describeCondition(payload: String?, base: String) = "the address is an MX record for ${payload ?: base}"
+    }, PTR {
+        override fun describeCondition(payload: String?, base: String) = "the address has a ptr <-> a link below this domain"
+    }, EXISTS {
+        override fun describeCondition(payload: String?, base: String) = "the domain $payload exists"
+    }, INCLUDE {
+        override fun describeCondition(payload: String?, base: String) = "the email would pass $payload as $base"
+    }, REDIRECT {
+        override fun describeCondition(payload: String?, base: String) = "the email would pass $payload as $payload"
+    }, EXP {
+        override fun describeCondition(payload: String?, base: String) = "TODO"
+    };
     val token = name.toLowerCase()
+    abstract fun describeCondition(payload: String?, base: String): String
 }
 
-data class SPFToken(val rule: SPFRuleType?, val type:SPFTokenType, val payload: String?) {
+data class SPFToken(val rule: SPFRuleType?, val type:SPFTokenType, val payload: String?, val base: String) {
     val treatedRule = rule ?: SPFRuleType.PASS
+
+    val explained = explain(base)
+
+    fun explain(domain: String): String {
+        if (type == SPFTokenType.EXP) {
+            "The rejection message should be $payload"
+        }
+        return "The email should be ${treatedRule.verb} if ${type.describeCondition(payload, domain)}"
+    }
 }
 
 typealias SPFRecord = List<SPFToken>
@@ -38,24 +77,24 @@ object SPF {
     val SPFRefex = Regex("""v=spf1( +${partRegex.pattern})*?( [+?\-~]?all)?""")
     val spaces = Regex(" +")
 
-    fun parsePart(input: String): SPFToken {
+    fun parsePart(input: String, domain: String): SPFToken {
         val parsed = partRegex.matchEntire(input)
         val (qualifier, typeName, data) = parsed!!.groupValues.drop(1)
         val qual = if (qualifier.isBlank()) null else SPFRuleType.getForChar(qualifier[0])
-        return SPFToken(qual, SPFTokenType.valueOf(typeName.toUpperCase()), if (data.isBlank()) null else data.substring(1))
+        return SPFToken(qual, SPFTokenType.valueOf(typeName.toUpperCase()), if (data.isBlank()) null else data.substring(1), domain)
     }
 
-    fun parse(input: String): SPFRecord? {
+    fun parse(input: String, domain: String): SPFRecord? {
         if (SPFRefex.matchEntire(input) == null) {
             return null
         }
-        return input.split(spaces).drop(1).map { parsePart(it) }
+        return input.split(spaces).drop(1).map { parsePart(it, domain) }
     }
 
     data class ParsedRecord(val parsed: SPFRecord?, val raw: List<String>, val errors: List<String>) {
         companion object {
-            fun fromObject(input: List<String>): ParsedRecord {
-                val parsed = SPF.parse(input.joinToString(""))
+            fun fromObject(input: List<String>, domain: String): ParsedRecord {
+                val parsed = SPF.parse(input.joinToString(""), domain)
                 return ParsedRecord(parsed, input, parsed?.validate()?: listOf())
             }
         }
@@ -64,7 +103,7 @@ object SPF {
         return DNS.getTxt(domain).then {
             val strings = it.map { it.strings }
             val spfs = strings.filter { it.joinToString("").startsWith("v=spf1") }
-            spfs.map{ParsedRecord.fromObject(it)}
+            spfs.map{ParsedRecord.fromObject(it, domain)}
         }
     }
 }
