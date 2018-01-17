@@ -1,1 +1,13 @@
+{{#*inline "provider"}}
+    <li class="mdl-list__item">{{service}} - <a href="{{hostname}}">{{name}}</a></li>
+{{/inline}}
+{{#*inline "page_content"}}
+    <h2>This site runs on:</h2>
+    <ul class="demo-list-item mdl-list">
+        {{>provider service="Web Hosting" hostname="https://www.netlify.com/" name="Netlify"}}
+        {{>provider service="DNS Lookup" hostname="http://www.dns-lg.com/" name="DNS-LG"}}
+        {{>provider service="DNS Hosting" hostname="https://www.cloudflare.com/" name="Cloudflare"}}
+        {{>provider service="Programming Language" hostname="https://kotlinlang.org" name="Kotlin"}}
+    </ul>
+{{/inline}}
 {{>shell title="About"}}
