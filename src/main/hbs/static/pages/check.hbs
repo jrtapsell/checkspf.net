@@ -1,0 +1,18 @@
+{{#*inline "page_content"}}
+    <h2>Choose a site to check</h2>
+    <form>
+        <input id="domainInput" required="true" pattern="[0-9.-A-Za-z]+">
+        <button type="submit">Load URL</button>
+    </form>
+{{/inline}}
+{{#* inline "after_body"}}
+    <script>
+        var form = document.forms[0];
+        form.onsubmit = function (data) {
+            var input = form.elements[0];
+            window.location = "/check/" + input.value;
+            return false;
+        }
+    </script>
+{{/inline}}
+{{>shell title="Check"}}
