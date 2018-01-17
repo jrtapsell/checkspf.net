@@ -9,8 +9,8 @@
             {{#each parsed}}
                 <tr>
                 <td class="ruleText"><pre>{{treatedRule.prefix}}{{type.token}}{{#if payload}}:{{payload}}{{/if}}</pre></td>
-                <td>{{treatedRule.name$}}</td>
-                    <td>{{type.token}}</td>
+                <td class="rule-{{treatedRule.name$}}">{{treatedRule.name$}}</td>
+                    <td class="token-{{type.token}}">{{type.token}}</td>
                     <td>{{payload}}</td>
                     <td><span class="ruleExplained">{{explained}}</span></td>
                 </tr>

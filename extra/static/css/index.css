@@ -26,6 +26,22 @@
     color: hsl(320,70%, 50%);
 }
 
+.rule-PASS {
+    color: green;
+}
+
+.rule-NEUTRAL {
+    color: yellow;
+}
+
+.rule-SOFT_FAIL {
+    color: orange;
+}
+
+.rule-FAIL {
+    color: red;
+}
+
 .ghost {
     font-weight: bold;
     color: black;
