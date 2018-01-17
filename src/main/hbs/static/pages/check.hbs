@@ -1,8 +1,11 @@
 {{#*inline "page_content"}}
     <h2>Choose a site to check</h2>
     <form>
-        <input id="domainInput" required="true" pattern="[0-9.-A-Za-z]+">
-        <button type="submit">Load URL</button>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="domainInput" required="true" pattern="[0-9.-A-Za-z]+">
+            <label class="mdl-textfield__label" for="domainInput">Domain to check</label>
+        </div>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Load URL</button>
     </form>
 {{/inline}}
 {{#* inline "after_body"}}
