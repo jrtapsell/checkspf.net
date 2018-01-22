@@ -32,7 +32,7 @@ object Controller {
         }
         val data = Promise.all(promises.toTypedArray())
         val out = data.then {
-            val first = it.firstOrNull { it.data.isNotEmpty() }
+            val first = it[0]
             OverallResult(it, first, first.validate())
         }
         HBS.render(out, document.getElementById("domain-tab") as HTMLElement, SPFViewer.templates::domain)
