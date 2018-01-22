@@ -28,7 +28,7 @@ enum class SPFTokenType {
     }, IP6 {
         override fun describeCondition(payload: String?, base: String) = "the sending IP (v6) matches $payload"
     }, A {
-        override fun describeCondition(payload: String?, base: String) =  "the address is an A record for ${payload ?: base}"
+        override fun describeCondition(payload: String?, base: String) =  "the address is an A or AAAA record for ${payload ?: base}"
     }, MX {
         override fun describeCondition(payload: String?, base: String) = "the address is an MX record for ${payload ?: base}"
     }, PTR {
